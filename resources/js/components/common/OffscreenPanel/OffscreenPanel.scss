@@ -1,0 +1,18 @@
+.offscreen-panel {
+    position: fixed;
+    height: 100vh;
+    width: 75%;
+    background-color: #ccc;
+    border: 2px solid black;
+    z-index: 1000;
+    top: 0;
+    right: 0;
+}
+
+.offscreen-panel-close {
+    right: -75%;
+}
+
+.offscreen-panel-open {
+    right: 0;
+}
