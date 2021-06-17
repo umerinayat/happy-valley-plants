@@ -1,4 +1,4 @@
-import { Route, Switch, useLocation } from "react-router-dom";
+import { Route, Switch, useLocation, Redirect } from "react-router-dom";
 import OffscreenPanel from "../common/OffscreenPanel/OffscreenPanel";
 import Login from "../pages/Auth/Login";
 import Categories from "./../pages/Categories/Index";
@@ -27,7 +27,7 @@ const Layout = () => {
                     <div className="container-fluid">
                         <Switch>
                             <Route
-                                path="/admin"
+                                path="/admin/dashboard"
                                 exact
                                 render={() => <h1>Admin Dashboard</h1>}
                             />
@@ -60,6 +60,10 @@ const Layout = () => {
                                 path="/admin/login"
                                 exact
                                 component={Login}
+                            />
+                             <Route
+                                path="/admin"
+                                render={ () => ( <Redirect to="/admin/dashboard" />) }
                             />
                             <Route
                                 path="*"

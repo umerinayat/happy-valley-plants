@@ -24,7 +24,7 @@
                                         <a href="#"><i class="icon-users"></i></a>
                                         <ul class="dropdown_links">
                                             <li><a href="checkout.html">Checkout </a></li>
-                                            <li><a href="my-account.html">My Account </a></li>
+                                            <li><a href="{{ route('user.dashboard') }}">My Account</a></li>
                                             <li><a href="cart.html">Shopping Cart</a></li>
                                         </ul>
                                     </div>

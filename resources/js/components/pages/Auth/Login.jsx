@@ -16,7 +16,7 @@ const Login = () => {
                                         <h1 className="h4 text-gray-900 mb-4">Happy Valley Plants</h1>
                                         <h4>Admin Panel</h4>
                                     </div>
-                                    <form className="user mt-3" method="post" action="/login">
+                                    <form className="user mt-3" method="post" action="/admin/login">
                                         <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]').content} />
                                         <div className="form-group">
                                             <input type="email" className="form-control form-control-user"

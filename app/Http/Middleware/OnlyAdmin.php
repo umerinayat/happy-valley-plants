@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class IsAdmin
+class OnlyAdmin
 {
     /**
      * Handle an incoming request.
@@ -16,19 +16,21 @@ class IsAdmin
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
-    {
-        if ( Auth::check() && $request->user()->is_admin )
+    {   
+        if ( Auth::guard('admin')->check() )
         {
             return $next($request);
         }
         else 
-        {
+        {   
+            // rest api requset
             if ( $request->expectsJson() ) 
             {
                 return  response()->json(["message" => "Forbidden"], 403);
             }
 
-            return redirect('/');
+            // user dashboard
+            return redirect('/dashboard');
         }
 
     }

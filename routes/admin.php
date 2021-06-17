@@ -1,15 +1,16 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 // Admin Routes
 
-// Admin Login
-Route::middleware('guest')->get('/admin/login', function () {
-    return view('admin.index');
+Route::group(['prefix' => 'admin', 'middleware' => 'admin:admin'], function () {
+    Route::get('/login', [AdminController::class, 'loginForm'])->name('admin.login');
+    Route::post('/login', [AdminController::class, 'store']);
 });
 
 // Serve React Admin SPA
-Route::middleware(['auth', 'verified', 'IsAdmin'])->get('/admin/{any?}', function () {
+Route::middleware(['auth:sanctum,admin', 'onlyadmin', 'verified'])->get('/admin/{any?}', function () {
     return view('admin.index');
-})->where('any', '.*');
+})->where('any', '.*')->name('admin.dashboard');

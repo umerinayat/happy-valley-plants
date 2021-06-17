@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StoreFront\DashboardController;
 use App\Http\Controllers\StoreFront\HomeController;
 use App\Http\Controllers\StoreFront\PlantProductController;
 
 // Client Routes
+Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', [DashboardController::class, 'index'])->name('user.dashboard');
 
 // Processing Payments RND
 Route::get('/payments', [PaymentController::class, 'index']);

@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\PlantProductController;
 
 // Admin Protected API Routes
 
-Route::middleware(['auth:sanctum', 'verified', 'IsAdmin'])->group(function () {
+Route::middleware(['auth:sanctum,admin', 'onlyadmin', 'verified'])->group(function () {
 
     // API Resources
     // -------------------------------------------------
