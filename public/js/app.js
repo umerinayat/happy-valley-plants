@@ -5746,14 +5746,24 @@ var TopBar = function TopBar() {
             }), "Activity Log"]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
             className: "dropdown-divider"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
-            className: "dropdown-item",
-            href: "#",
-            "data-toggle": "modal",
-            "data-target": "#logoutModal",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
-              className: "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
-            }), "Logout"]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("form", {
+            method: "POST",
+            action: "/admin/logout",
+            id: "logoutForm",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "hidden",
+              name: "_token",
+              value: document.querySelector('meta[name="csrf-token"]').content
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("a", {
+              className: "dropdown-item",
+              onClick: function onClick(event) {
+                event.preventDefault();
+                document.getElementById('logoutForm').submit();
+              },
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("i", {
+                className: "fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"
+              }), "Logout"]
+            })]
           })]
         })]
       })]

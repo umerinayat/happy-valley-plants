@@ -192,10 +192,13 @@ const TopBar = () => {
                         Activity Log
                     </a>
                         <div className="dropdown-divider"></div>
-                        <a className="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
-                            <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                        Logout
-                    </a>
+                        <form method="POST" action="/admin/logout" id="logoutForm">
+                            <input type="hidden" name="_token" value={document.querySelector('meta[name="csrf-token"]').content} />
+                            <a className="dropdown-item" onClick={(event) => { event.preventDefault(); document.getElementById('logoutForm').submit(); } }>
+                                <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout  
+                            </a>
+                        </form>
                     </div>
                 </li>
 

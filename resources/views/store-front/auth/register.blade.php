@@ -30,21 +30,40 @@
                         <form method="POST" action="{{ route('register') }}">
                             @csrf
                             <p>
+                                <label for="firstName">First Name <span>*</span></label>
+                                <input id="firstName" type="text" name="first_name" value="{{ old('first_name') }}"   />
+                                @error('first_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </p>
+                            <p>
+                                <label for="lastName">Last Name <span>*</span></label>
+                                <input id="lastName" type="text" name="last_name" value="{{ old('last_name') }}"   />
+                                @error('last_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </p>
+                            <p>
                                 <label for="email">Email <span>*</span></label>
-                                <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus />
+                                <input id="email" type="email" name="email" value="{{ old('email') }}"  autofocus />
                                 @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </p>
                             <p>
                                 <label for="password">Password <span>*</span></label>
-                                <input id="password" type="password" name="password" required autocomplete="current-password">
+                                <input id="password" type="password" name="password"  autocomplete="current-password">
+                                @error('password')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </p>
+                            <p>
+                                <label for="password_confirmation">Confirm Password <span>*</span></label>
+                                <input id="password_confirmation" type="password" name="password_confirmation"  autocomplete="new-password">
                             </p>
                            
                             <div class="login_submit">
-                                @if (Route::has('password.request'))
-                                    <a href="{{ route('password.request') }}">{{ __('Forgot your password?') }}</a>
-                                @endif
+                                <a href="{{ route('login') }}">{{ __('Do you already have an account? Login') }}</a>
                                 <button type="submit">{{ __('Register') }}</button>
                             </div>
 

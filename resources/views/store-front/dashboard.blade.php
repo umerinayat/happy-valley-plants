@@ -34,7 +34,17 @@
                                 <li><a href="#address" data-toggle="tab" class="nav-link">Addresses</a></li>
                                 <li><a href="#account-details" data-toggle="tab" class="nav-link">Account details</a>
                                 </li>
-                                <li><a href="login.html" class="nav-link">logout</a></li>
+                                <li>
+                                    <!-- Authentication -->
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a href="{{ route('logout') }}" class="nav-link"
+                                                onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                            Log Out
+                                        </a>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>

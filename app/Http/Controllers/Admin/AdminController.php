@@ -105,6 +105,8 @@ class AdminController extends Controller
     {
         $this->guard->logout();
 
+        dd( $this->guard);
+
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
