@@ -15,7 +15,7 @@ return [
 
     'stateful' => explode(',', env(
         'SANCTUM_STATEFUL_DOMAINS',
-        'happy-valley-plants.local,localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
+        'happy-valley-plants.local,hvp.umerinayat.com,localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1'
     )),
 
     /*
