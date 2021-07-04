@@ -15,7 +15,7 @@ class CreatePlantProductsTable extends Migration
     {
         Schema::create('plant_products', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id');
+            $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('title');
             $table->string('slug');
