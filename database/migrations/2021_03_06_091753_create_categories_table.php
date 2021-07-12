@@ -18,9 +18,9 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
 
-            $table->unsignedBigInteger('parent_cat_id')->nullable()->default(0);
-            $table->foreign('parent_cat_id')->references('id')
-                ->on('categories')->onDelete('cascade'); 
+            $table->unsignedBigInteger('parent_cat_id')->default(0);
+            // $table->foreign('parent_cat_id')->references('id')
+            //     ->on('categories')->onDelete('cascade'); 
             
             $table->timestamps();
         });
