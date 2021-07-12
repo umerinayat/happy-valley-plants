@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="product_d_right">
-                        <form action="#">
+                  
                             <h1><a href="#">{{ $product->title }}</a></h1>
                             
                             <div class="price_box">
@@ -83,7 +83,7 @@
                             <div class="product_variant quantity">
                                 <label>quantity</label>
                                 <input min="1" max="{{ $product->stock }}" value="1" type="number">
-                                <button class="button" type="submit">add to cart</button>
+                                <button class="button addToCartBtn" data-product-id="{{ $product->id }}"  type="submit">add to cart</button>
 
                             </div>
                             
@@ -91,7 +91,7 @@
                                 <span>Category: <a href="{{ route('plantsProducts', ['category_slug' =>  $product->category->slug]) }}"> {{ $product->category->name }} </a></span>
                             </div>
 
-                        </form>
+                 
                         <div class="priduct_social">
                             <ul>
                                 <li><a class="facebook" href="#" title="facebook"><i class="fa fa-facebook"></i>
@@ -150,4 +150,10 @@
     <!--product info end-->
 
 @endsection
+
+@push('scripts')
+
+
+
+@endpush
 

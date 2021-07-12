@@ -131,6 +131,46 @@
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    <script> 
+
+            $addToCartBtn = $('.addToCartBtn');
+            $cartItemsCount = $('.cartsItemsCount');
+
+            // init local storage
+            var cartProductIds = [];
+            if ( ! ('cartProductIds' in localStorage) ) {
+                localStorage.setItem('cartProductIds', JSON.stringify([]));
+                cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
+            }  else {
+                cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
+                $cartItemsCount.text(cartProductIds.length);
+            }
+
+
+            $addToCartBtn.on('click', function(event) {
+                var productId = $(this).data('productId');
+
+                if ( cartProductIds.find(function(cartProductId) { return productId === cartProductId }) ) {
+                    console.log('Already in cart');
+                    return;
+                }
+                cartProductIds.push(productId);
+
+                var updatedCartIds = [ ...(JSON.parse( localStorage.getItem('cartProductIds') )), productId];
+                
+                localStorage.setItem('cartProductIds', JSON.stringify(updatedCartIds) );
+
+                $cartItemsCount.text(cartProductIds.length);
+            });
+
+    </script>
+
+
+    @stack('scripts')
+    @endstack
+
+
+
 
 </body>
 

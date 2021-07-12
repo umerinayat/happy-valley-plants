@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 
+import './SideBar.scss';
+
 const SideBar = () => {
     return (
         <ul
-            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            className="navbar-nav sbg sidebar sidebar-dark accordion"
             id="accordionSidebar"
         >
             <Link
@@ -28,6 +30,19 @@ const SideBar = () => {
 
             <div className="sidebar-heading">Admin</div>
 
+            <li className="nav-item">
+                <Link className="nav-link" to="/admin/customers">
+                <i className="fas fa-list-ul"></i>
+                    <span>Customers</span>
+                </Link>
+            </li>
+
+            <li className="nav-item">
+                <Link className="nav-link" to="/admin/customers/orders">
+                <i className="fas fa-list-ul"></i>
+                    <span>Orders</span>
+                </Link>
+            </li>
     
             <li className="nav-item">
                 <Link className="nav-link" to="/admin/categories">

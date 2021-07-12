@@ -1,5 +1,4 @@
 import { Route, Switch, useLocation, Redirect } from "react-router-dom";
-import OffscreenPanel from "../common/OffscreenPanel/OffscreenPanel";
 import Login from "../pages/Auth/Login";
 import Categories from "./../pages/Categories/Index";
 import PlanterStyles from "../pages/planterStyles/Index";
@@ -8,6 +7,8 @@ import PlanterSizes from "./../pages/PlanterSizes/Index";
 
 
 import Products from "./../pages/PlantProducts/Index";
+import Customers from "./../pages/Customers/Index";
+
 
 
 import Footer from "./Footer";
@@ -32,33 +33,35 @@ const Layout = () => {
                                 render={() => <h1>Admin Dashboard</h1>}
                             />
                             <Route
+                                path="/admin/customers"
+                                component={Customers}
+                            />
+                             <Route
+                                path="/admin/orders"
+                                component={() => <h1>Orders</h1>}
+                            />
+                            <Route
                                 path="/admin/categories"
-                                exact
                                 component={Categories}
                             />
                             <Route
                                 path="/admin/planter-styles"
-                                exact
                                 component={PlanterStyles}
                             />
                             <Route
                                 path="/admin/planter-sizes"
-                                exact
                                 component={PlanterSizes}
                             />
                              <Route
                                 path="/admin/planters/colors"
-                                exact
                                 component={PlanterColors}
                             />
                             <Route
                                 path="/admin/products"
-                                exact
                                 component={Products}
                             />
                             <Route
                                 path="/admin/login"
-                                exact
                                 component={Login}
                             />
                              <Route
