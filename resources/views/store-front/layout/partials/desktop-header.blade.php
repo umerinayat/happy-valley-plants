@@ -30,7 +30,7 @@
                                     </div>
                                   
                                     <div class="header_account-list  mini_cart_wrapper">
-                                        <a href="javascript:void(0)"><i class="icon-shopping-bag"></i><span
+                                        <a href="{{ route("cart") }}"><i class="icon-shopping-bag"></i><span
                                                 class="item_count cartsItemsCount">0</span></a>
                                         <!--mini cart-->
                                         <div class="mini_cart">
