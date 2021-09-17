@@ -31,8 +31,12 @@
     <!--plugins css-->
     <link rel="stylesheet" href="{{ asset('assets/css/plugins.css') }}">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.css" integrity="sha512-wJgJNTBBkLit7ymC6vvzM1EcSWeM9mmOu+1USHaRBbHkm6W9EgM0HY27+UtUaprntaYQJF75rc8gjxllKs5OIQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+
+    
 
     <!--modernizr min js here-->
     <script src="{{ asset('assets/js/vendor/modernizr-3.7.1.min.js') }}"></script>
@@ -131,36 +135,46 @@
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.2/axios.min.js" integrity="sha512-SRGf0XYPMWMGCYQg7sQsW2/FMWq0L/mYhwxDraoUOeZ9sWO2/+R48bcXZaWOpwjCQbyRWP24zsbtqQxJXU1W2w==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script> 
 
             $addToCartBtn = $('.addToCartBtn');
             $cartItemsCount = $('.cartsItemsCount');
 
             // init local storage
-            var cartProductIds = [];
-            if ( ! ('cartProductIds' in localStorage) ) {
-                localStorage.setItem('cartProductIds', JSON.stringify([]));
-                cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
-            }  else {
-                cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
-                $cartItemsCount.text(cartProductIds.length);
-            }
+            // var cartProductIds = [];
+            // if ( ! ('cartProductIds' in localStorage) ) {
+            //     localStorage.setItem('cartProductIds', JSON.stringify([]));
+            //     cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
+            // }  else {
+            //     cartProductIds = JSON.parse(localStorage.getItem('cartProductIds'));
+            //     $cartItemsCount.text(cartProductIds.length);
+            // }
 
 
             $addToCartBtn.on('click', function(event) {
                 var productId = $(this).data('productId');
+                axios.get('/products/add-to-cart/' + productId).then( function({data} ) {
+                    $.toast({
+                        heading: data.message,
+                        position: 'bottom-center',
+                        stack: false
+                    });
+                    $cartItemsCount.text(data.cartCount);
+                });
 
-                if ( cartProductIds.find(function(cartProductId) { return productId === cartProductId }) ) {
-                    console.log('Already in cart');
-                    return;
-                }
-                cartProductIds.push(productId);
 
-                var updatedCartIds = [ ...(JSON.parse( localStorage.getItem('cartProductIds') )), productId];
+                // if ( cartProductIds.find(function(cartProductId) { return productId === cartProductId }) ) {
+                //     console.log('Already in cart');
+                //     return;
+                // }
+                // cartProductIds.push(productId);
+
+                // var updatedCartIds = [ ...(JSON.parse( localStorage.getItem('cartProductIds') )), productId];
                 
-                localStorage.setItem('cartProductIds', JSON.stringify(updatedCartIds) );
+                // localStorage.setItem('cartProductIds', JSON.stringify(updatedCartIds) );
 
-                $cartItemsCount.text(cartProductIds.length);
             });
 
     </script>
