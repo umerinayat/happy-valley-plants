@@ -106,7 +106,7 @@ const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct 
                     </select>
                     { errors.hasOwnProperty('category_id') ? errors.category_id.map(e => (<span className="text-danger"> {e} </span>)) : ''}
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="planter_style_ids">Choose Planter Styles</label>
                     <MultiSelect
                     options={planterStyles.map(ps => {
@@ -122,7 +122,7 @@ const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct 
                     labelledBy="Select"
                 />
                     { errors.hasOwnProperty('planter_style_ids') ? errors.planter_style_ids.map(e => (<span className="text-danger"> {e} </span>)) : ''}
-                </div>
+                </div> */}
                 <div className="form-group">
                     <label htmlFor="title">Product Title *</label>
                     <input
@@ -167,7 +167,7 @@ const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct 
                     />
                     { errors.hasOwnProperty('selling_price') ? errors.selling_price.map(e => (<span className="text-danger"> {e} </span>)) : ''}
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label htmlFor="discount_price">Discount Price *</label>
                     <input
                         className="form-control form-control-sm"
@@ -177,7 +177,7 @@ const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct 
                         onChange={handleChange}
                     />
                     { errors.hasOwnProperty('discount_price') ? errors.discount_price.map(e => (<span className="text-danger"> {e} </span>)) : ''}
-                </div>
+                </div> */}
                 <div className="form-group">
                     <label htmlFor="sku">SKU *</label>
                     <input

@@ -25,14 +25,12 @@
                                 <a class="primary_img" href="{{ route('plantsProductDetail', ['category_slug' => $product->category->slug, 'product_slug' => $product->slug]) }}"><img
                                         src="{{ asset('assets/img/product/image.jpg') }}" alt=""></a>
                             
-                                <div class="action_links">
-                                    <ul>
-                                        <li class="add_to_cart"><a href="cart.html" title="Add to cart"><i
-                                                    class="icon-shopping-bag"></i></a></li>
-                                        </li>
-                                       
-                                    </ul>
-                                </div>
+                                        <div class="action_links">
+                                            <ul>
+                                                <li class="add_to_cart addToCartBtn" data-product-id="{{ $product->id }}"><a href="javascript:void(0)" title="Add to cart"><i
+                                                class="icon-shopping-bag"></i></a></li>
+                                            </ul>
+                                        </div>
                             </div>
                             <figcaption class="product_content">
                                 <h4 class="product_name"><a href="{{ route('plantsProductDetail', ['category_slug' => $product->category->slug, 'product_slug' => $product->slug]) }}">{{ $product->title }}</a></h4>

@@ -31,7 +31,7 @@
                                   
                                     <div class="header_account-list  mini_cart_wrapper">
                                         <a href="{{ route("cart") }}"><i class="icon-shopping-bag"></i><span
-                                                class="item_count cartsItemsCount">0</span></a>
+                                                class="item_count cartsItemsCount"> {{ $cartCount ?? 0 }} </span></a>
                                         <!--mini cart-->
                                         <div class="mini_cart">
                                             <div class="cart_gallery">

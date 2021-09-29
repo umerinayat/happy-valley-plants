@@ -14,4 +14,9 @@ class CartProduct extends Model
         'user_id',
         'quantity'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(PlantProduct::class, 'plant_product_id');
+    }
 }

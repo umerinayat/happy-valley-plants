@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 
 use App\Repositories\Contracts\ICategory;
 use App\Repositories\Contracts\IPlantProduct;
+use App\Repositories\Contracts\IUser;
 use App\Repositories\Eloquent\Criteria\EagerLoad;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +19,14 @@ class CartController extends Controller
 {
     protected $categories;
     protected $plantProducts;
+    protected $users;
     
     // constructor
-    public function __construct(ICategory $categories, IPlantProduct $plantProducts) 
+    public function __construct(ICategory $categories, IPlantProduct $plantProducts, IUser $users) 
     {
         $this->categories = $categories;
         $this->plantProducts = $plantProducts;
+        $this->users = $users;
     }
 
     public function index(Request $request)
@@ -33,9 +36,73 @@ class CartController extends Controller
         $user = $request->session()->get('guest_user') ?? Auth::user();
 
         $data['categories'] = $this->categories->categoriesTree();
-        $data['cartProducts'] = CartProduct::where('user_id', $user->id)->get();
+
+        if ( $user )
+        {
+            $data['cartProducts'] = CartProduct::where('user_id', $user->id)->with([
+                'product'
+            ])->get();
+        }
+        else
+        {
+            $data['cartProducts'] = [];
+        }
+
+        $subTotal = 0;
+        $shippingTotal = 6.00;
+        foreach($data['cartProducts'] as $cp)
+        {
+            $price = $cp->product->selling_price * $cp->quantity;
+            $subTotal += $price;
+        }
+     
+
+        $data["subTotal"] = $subTotal;
+        $data["shippingTotal"] = $shippingTotal;
+        $data["totalPrice"] = $subTotal + $shippingTotal;
+
+        $user = $request->session()->get('guest_user') ?? Auth::user();
+        $data['cartCount'] =  $this->users->cartCount($user);
 
         return view('store-front.cart.cart', $data);
+    }
+
+    public function checkout(Request $request) 
+    {
+        $data = [];
+
+        $user = $request->session()->get('guest_user') ?? Auth::user();
+
+        $data['categories'] = $this->categories->categoriesTree();
+
+        if ( $user )
+        {
+            $data['cartProducts'] = CartProduct::where('user_id', $user->id)->with([
+                'product'
+            ])->get();
+        }
+        else
+        {
+            $data['cartProducts'] = [];
+        }
+
+        $subTotal = 0;
+        $shippingTotal = 6.00;
+        foreach($data['cartProducts'] as $cp)
+        {
+            $price = $cp->product->selling_price * $cp->quantity;
+            $subTotal += $price;
+        }
+     
+
+        $data["subTotal"] = $subTotal;
+        $data["shippingTotal"] = $shippingTotal;
+        $data["totalPrice"] = $subTotal + $shippingTotal;
+
+        $user = $request->session()->get('guest_user') ?? Auth::user();
+        $data['cartCount'] =  $this->users->cartCount($user);
+
+        return view('store-front.cart.checkout', $data);
     }
 
     public function addProductToCart(Request $request, $id) 
@@ -60,11 +127,11 @@ class CartController extends Controller
 
             if( count($cartProduct) > 0 )
             {   
-                $cartProduct->first()->quantity += 1;
-                $cartProduct->first()->save();
+                // $cartProduct->first()->quantity += 1;
+                // $cartProduct->first()->save();
 
                 return [
-                    'message' => "Plant Quantity Increased.",
+                    'message' => "Already in your cart.",
                     'cartCount' => CartProduct::where('user_id', $user->id)->count()
                 ];
             } 
@@ -73,11 +140,11 @@ class CartController extends Controller
                 CartProduct::create([
                     'plant_product_id' => $id,
                     'user_id' => $user->id,
-                    'cartCount' => 1
                 ]);
 
                 return [
-                    'message' => "Plant Added To Cart."
+                    'message' => "Plant Added To Cart.",
+                    'cartCount' => 1
                 ];
             }
         } 

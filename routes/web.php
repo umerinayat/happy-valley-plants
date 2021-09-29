@@ -28,6 +28,7 @@ Route::get('/plants/{category_slug}/{product_slug}', [PlantProductController::cl
 Route::get('/products/add-to-cart/{id}', [CartController::class, 'addProductToCart']);
 
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
+Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout');
 
 
 
