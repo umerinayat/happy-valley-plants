@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import MultiSelect from "react-multi-select-component";
+import ImageUploader from "react-images-upload";
 
 import {
     getCategories
@@ -9,7 +10,7 @@ import {
     getPlanterStyles
 } from "../../../api-services/planterStyleService";
 
-const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct }) => {
+const Form = ({ plantProducts, handleChange, errors, handleSubmit, onDropPlanterImage, plantProduct, ...props }) => {
     
     const [categories, setCategories] = useState([]);
     const [planterStyles, setPlanterStyles] = useState([]);
@@ -199,6 +200,20 @@ const Form = ({ plantProducts, handleChange, errors, handleSubmit, plantProduct 
                         onChange={handleChange}
                     />
                     { errors.hasOwnProperty('stock') ? errors.stock.map(e => (<span className="text-danger"> {e} </span>)) : ''}
+                </div>
+                <div className="form-group">
+                    <ImageUploader
+                        {...props}
+                        name='plant_images'
+                        withIcon={true}
+                        onChange={onDropPlanterImage}
+                        label='Max file size: 5mb, accepted: jpg|png'
+                        imgExtension={[".jpg", ".png"]}
+                        maxFileSize={5242880}
+                        buttonText='Choose Plant Images'
+                        withPreview={true}
+                        singleImage={false}
+                    />
                 </div>
                 <div className="text-right">
                     <button

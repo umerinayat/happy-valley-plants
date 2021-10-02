@@ -9,17 +9,21 @@ use App\Models\PlantProduct;
 use App\Repositories\Contracts\IPlantProduct;
 use App\Repositories\Eloquent\Criteria\LatestFirst;
 use App\Http\Resources\PlantProductResource;
-
+use App\Repositories\Contracts\IImage;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class PlantProductController extends Controller
 {
 
     protected $plantProducts;
+    protected $images;
 
-    // constructor
-    public function __construct(IPlantProduct $plantProducts) 
+    // conStructor
+    public function __construct(IPlantProduct $plantProducts, IImage $images) 
     {
         $this->plantProducts = $plantProducts;
+        $this->images = $images;
     }
 
     /**
@@ -53,8 +57,29 @@ class PlantProductController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(\App\Http\Requests\PlantProduct\Store $request)
-    {
+    {   
         $plantProduct = $this->plantProducts->create($request->all());
+
+        // Save Plant Images
+        foreach($request->plant_images as $img) 
+        {
+            $path = Storage::putFileAs(
+                'uploads/plant-products', 
+                $img,
+                $plantProduct->slug . '-' . time() . '.' .  $img->extension()
+            );
+    
+            $url = Storage::url($path);
+
+            $plantImage = $this->images->create([
+                'owner_id' => $plantProduct->id,
+                'type' => 'plant_product',
+                'image_path' => $url 
+            ]);
+
+            sleep(1);
+        }
+        
         return new PlantProductResource( $plantProduct );
     }
 

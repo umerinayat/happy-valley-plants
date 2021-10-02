@@ -20,7 +20,8 @@ const Index = () => {
         discount_price: "",
         sku: "",
         stock: 1,
-        planter_style_ids: []
+        planter_style_ids: [],
+        plant_images: [],
     });
     const [error, setError] = useState(null);
     const [errors, setErrors] = useState({});
@@ -48,6 +49,11 @@ const Index = () => {
             setPlantProduct({ ...plantProduct, [name]: value });
         }
     }
+
+    const onDropPlanterImage = image => {
+        setPlantProduct({ ...plantProduct, 'plant_images': image });
+    };
+
 
     function edit(pp) {
         setPlantProduct({ ...plantProduct, id: pp.id, title: pp.title, slug: pp.slug, selling_price: pp.selling_price,
@@ -100,7 +106,7 @@ const Index = () => {
             </div>
             <div className="col-sm-3">
                 {/* Manage plantProducts START*/}
-               <PlantProductForm errors={errors} handleSubmit={handleSubmit} plantProducts={plantProducts} plantProduct={plantProduct} handleChange={handleChange}/>
+               <PlantProductForm errors={errors} handleSubmit={handleSubmit} plantProducts={plantProducts} plantProduct={plantProduct} onDropPlanterImage={onDropPlanterImage} handleChange={handleChange}/>
             </div>
         </div>
     );

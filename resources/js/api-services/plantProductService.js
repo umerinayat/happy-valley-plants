@@ -17,10 +17,36 @@ const getPlantProducts = async () => {
 
 // POST 
 const addNewPlantProduct = async (plantProduct) => {
+
+    // id: 0,
+    // category_id: 0,
+    // title: "",
+    // slug: "",
+    // selling_price: "",
+    // discount_price: "",
+    // sku: "",
+    // stock: 1,
+    // planter_style_ids: [],
+    // plant_images: [],
+
+    const formData = new FormData();
+    
+    for(let p in plantProduct) {
+        if(p == "plant_images") {
+            let imagesCount = 1;
+            plantProduct[p].forEach(element => {
+                formData.append(`plant_images[]`, element);
+                imagesCount++;
+            });
+        } else {
+            formData.append(p, plantProduct[p]);
+        }
+    }
+
     try {
         const response = await axios.post(
             `${baseUrl}/plant-products`,
-            plantProduct
+            formData
         );
         return response.data.data;
     } catch (e) {
